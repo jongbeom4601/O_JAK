@@ -44,7 +44,11 @@ public class Box : MonoBehaviour, IInteractable
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / moveDuration);
-            transform.position = Vector2.Lerp(start, target, t);
+
+            // °¨¼Ó (EaseOutQuad)
+            float easedT = 1f - (1f - t) * (1f - t);
+
+            transform.position = Vector2.Lerp(start, target, easedT);
             yield return null;
         }
 

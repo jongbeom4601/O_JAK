@@ -10,6 +10,13 @@ TagManager:
   - Obstacle_JumpHole
   - Item_Key
   - Trigger_Door
+  - Obstacle_SpikeTrap1
+  - Obstacle_SpikeTrap2
+  - Obstacle_SpikeTrap3
+  - Trigger_SpikeTrapTrigger1
+  - Trigger_SpikeTrapTrigger2
+  - Trigger_SpikeTrapTrigger3
+  - Trigger_OneWayTeleporter
   layers:
   - Default
   - TransparentFX
@@ -17,7 +24,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Option
   - 
   - 
   - 

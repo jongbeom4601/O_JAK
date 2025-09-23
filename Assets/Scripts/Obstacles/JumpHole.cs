@@ -18,7 +18,7 @@ public class JumpHole : MonoBehaviour, IInteractable
             PlayerMovement player = interactor.GetComponent<PlayerMovement>();
             if (player != null)
             {
-                player.MoveTo(targetPos);
+                player.JumpTo(targetPos);
                 Debug.Log("JumpHole: 이동 성공");
 
                 // 이동 완료 후 재상호작용 시도
@@ -37,7 +37,9 @@ public class JumpHole : MonoBehaviour, IInteractable
 
         return col.CompareTag("Obstacle_Wall") ||
                col.CompareTag("Obstacle_Box") ||
-               col.CompareTag("Obstacle_Breakable");
+               col.CompareTag("Obstacle_Breakable") ||
+               col.CompareTag("Obstacle_JumpHole") ||
+               col.CompareTag("Trigger_Door");
     }
 
     IEnumerator DelayedRecheck(PlayerMovement player, Vector2 direction)
