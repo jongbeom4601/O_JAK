@@ -65,34 +65,115 @@ public class PlayerMovement : MonoBehaviour
         Vector2 playerPos = transform.position;
         Vector2 targetPos = playerPos + dir;
 
-        Collider2D hit = Physics2D.OverlapCircle(targetPos, 0.1f);
-        if (hit != null)
+        // 해당 칸에 있는 모든 충돌체 가져오기
+        Collider2D[] hits = Physics2D.OverlapCircleAll(targetPos, 0.1f);
+
+        if (hits.Length > 0)
         {
-            // 견우, 직녀 스킬 상호작용 장애물은 제외
-            if (hit.CompareTag("Obstacle_JumpHole") || hit.CompareTag("Obstacle_Breakable"))
+            Collider2D chosen = null;
+
+            // 1순위: 박스
+            foreach (var h in hits)
             {
-                Debug.Log("스킬로 상호작용해야하는 장애물입니다.");
-                return; // 그냥 멈춤
+                if (h.CompareTag("Obstacle_Box"))
+                {
+                    chosen = h;
+                    break;
+                }
             }
 
-            IInteractable interactable = hit.GetComponent<IInteractable>();
-            if (interactable != null)
+            // 2순위: 열쇠
+            if (chosen == null)
             {
-                if (hit.CompareTag("Obstacle_Box"))
+                foreach (var h in hits)
+                {
+                    if (h.CompareTag("Key"))
                     {
-                    characterAnim.SetTrigger("Push"); // 캐릭터 애니메이션
+                        chosen = h;
+                        break;
+                    }
                 }
-                interactable.Interact(gameObject, dir);
-                return;
+            }
+
+            // 3순위: 부수는 벽 (스킬 필요)
+            if (chosen == null)
+            {
+                foreach (var h in hits)
+                {
+                    if (h.CompareTag("Obstacle_Breakable"))
+                    {
+                        Debug.Log("스킬로 상호작용해야 하는 장애물입니다.");
+                        return; // 그냥 멈춤 (Interact 호출 X)
+                    }
+                }
+            }
+
+            // 4순위: 점프홀 (스킬 필요)
+            if (chosen == null)
+            {
+                foreach (var h in hits)
+                {
+                    if (h.CompareTag("Obstacle_JumpHole"))
+                    {
+                        Debug.Log("스킬로 상호작용해야 하는 장애물입니다.");
+                        return; // 그냥 멈춤 (Interact 호출 X)
+                    }
+                }
+            }
+
+            // 5순위: 나머지 (구름 제외)
+            if (chosen == null)
+            {
+                foreach (var h in hits)
+                {
+                    if (h.CompareTag("Cloud")) continue;
+
+                    IInteractable interactable = h.GetComponent<IInteractable>();
+                    if (interactable != null)
+                    {
+                        chosen = h;
+                        break;
+                    }
+                }
+            }
+
+            // 6순위: 구름 (최하위)
+            if (chosen == null)
+            {
+                foreach (var h in hits)
+                {
+                    if (h.CompareTag("Cloud"))
+                    {
+                        chosen = h;
+                        break;
+                    }
+                }
+            }
+
+            // 최종적으로 선택된 오브젝트와 상호작용
+            if (chosen != null)
+            {
+                IInteractable interactable = chosen.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    if (chosen.CompareTag("Obstacle_Box"))
+                    {
+                        characterAnim.SetTrigger("Push"); // 박스 밀기 애니메이션
+                    }
+
+                    interactable.Interact(gameObject, dir);
+                    return;
+                }
             }
         }
 
-        // 이동 가능한 경우 (hit == null)
-        if (hit == null)
+        // 이동 가능한 경우 (아무 충돌체 없음)
+        if (hits.Length == 0)
         {
             StartCoroutine(Move(transform, targetPos));
         }
     }
+
 
     IEnumerator Move(Transform obj, Vector2 target)
     {
@@ -115,6 +196,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
+        // Move() 코루틴 끝부분에 추가
         obj.position = target;
         isMoving = false;
 
@@ -122,9 +204,22 @@ public class PlayerMovement : MonoBehaviour
         {
             moveCount++;
             UpdateMoveUI();
+
+            // 이동 완료 후 아이템 자동 획득 체크
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+            foreach (var h in hits)
+            {
+                if (h.CompareTag("Item_Key"))
+                {
+                    var interactable = h.GetComponent<IInteractable>();
+                    if (interactable != null)
+                        interactable.Interact(gameObject, Vector2.zero);
+                }
+            }
         }
+
     }
-    
+
     // JumpHole 전용 메서드... 최적화 시 수정해야 함
     IEnumerator Jump(Transform obj, Vector2 target)
     {

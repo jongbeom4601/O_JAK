@@ -54,20 +54,34 @@ public class GeonwooSkill : MonoBehaviour, IAllySkill
         Vector2 playerPos = pm.transform.position;
         Vector2 targetPos = playerPos + pm.LastDir;
 
-        Collider2D hit = Physics2D.OverlapCircle(targetPos, 0.1f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(targetPos, 0.1f);
+        Collider2D chosen = null;
 
-        if (hit != null && hit.CompareTag("Obstacle_Breakable"))
+        // 1순위: Breakable
+        foreach (var h in hits)
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
+            if (h.CompareTag("Obstacle_Breakable"))
+            {
+                chosen = h;
+                break;
+            }
+        }
+
+        // Breakable 없으면 첫 번째 충돌체라도 선택
+        if (chosen == null && hits.Length > 0)
+            chosen = hits[0];
+
+        if (chosen != null)
+        {
+            IInteractable interactable = chosen.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 interactable.Interact(caster, pm.LastDir);
-                remainingUses--; // 성공 시 횟수 차감
-                Debug.Log($"스킬 사용! 남은 횟수: {remainingUses}/{maxUses}");
-                UpdateUI(); // UI 갱신
-                anim.SetTrigger("Pulse"); // 애니메이션 트리거
+                remainingUses--;
+                UpdateUI();
+                anim.SetTrigger("Pulse");
                 casterAnim.SetTrigger("Skill");
-                return;
+                Debug.Log($"스킬 사용! 남은 횟수: {remainingUses}/{maxUses}");
             }
         }
     }
@@ -86,20 +100,34 @@ public class GeonwooSkill : MonoBehaviour, IAllySkill
         Vector2 playerPos = pm.transform.position;
         Vector2 targetPos = playerPos + pm.LastDir;
 
-        Collider2D hit = Physics2D.OverlapCircle(targetPos, 0.1f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(targetPos, 0.1f);
+        Collider2D chosen = null;
 
-        if (hit != null && hit.CompareTag("Obstacle_Breakable"))
+        // 1순위: Breakable
+        foreach (var h in hits)
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
+            if (h.CompareTag("Obstacle_Breakable"))
+            {
+                chosen = h;
+                break;
+            }
+        }
+
+        // Breakable 없으면 첫 번째 충돌체라도 선택
+        if (chosen == null && hits.Length > 0)
+            chosen = hits[0];
+
+        if (chosen != null)
+        {
+            IInteractable interactable = chosen.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                interactable.Interact(ally, pm.LastDir);
-                remainingUses--; // 성공 시 횟수 차감
+                interactable.Interact(caster, pm.LastDir);
+                remainingUses--;
+                UpdateUI();
+                anim.SetTrigger("Pulse");
+                casterAnim.SetTrigger("Skill");
                 Debug.Log($"스킬 사용! 남은 횟수: {remainingUses}/{maxUses}");
-                UpdateUI(); // UI 갱신
-                anim.SetTrigger("Pulse"); // 애니메이션 트리거
-                allyAnim.SetTrigger("Skill");
-                return;
             }
         }
     }

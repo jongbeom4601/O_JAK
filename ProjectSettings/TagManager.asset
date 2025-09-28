@@ -17,6 +17,7 @@ TagManager:
   - Trigger_SpikeTrapTrigger2
   - Trigger_SpikeTrapTrigger3
   - Trigger_OneWayTeleporter
+  - Obstacle_Cloud
   layers:
   - Default
   - TransparentFX
