@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class OneWayTeleporter : MonoBehaviour, IInteractable
 {
+    public int Priority => 100; // 최우선
+
     [Header("텔레포트 목적지(절대 좌표)")]
     public Vector2 targetPoint;
 

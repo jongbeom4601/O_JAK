@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class Box : MonoBehaviour, IInteractable
-{
+public class Box : MonoBehaviour, IInteractable {
+
+    public int Priority => 50; // 2¼øÀ§
     public float moveDuration = 0.1f;
 
-    public void Interact(GameObject interactor, Vector2 direction)
-    {
+    public void Interact(GameObject interactor, Vector2 direction) {
         Vector2 currentPos = transform.position;
         Vector2 targetPos = currentPos + direction;
 

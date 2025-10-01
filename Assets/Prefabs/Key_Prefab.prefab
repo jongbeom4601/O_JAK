@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5275127791451528549}
   - component: {fileID: 5869829439270801361}
   - component: {fileID: 1923018697117413396}
-  m_Layer: 0
+  - component: {fileID: 1201424892207355852}
+  m_Layer: 7
   m_Name: Key_Prefab
   m_TagString: Item_Key
   m_Icon: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.99371064, g: 0.9374009, b: 0.0781217, a: 1}
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fe41a4318315746b45d5c68a9aeeb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 1
 --- !u!61 &5869829439270801361
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,6 +175,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &1201424892207355852
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724496470129647698}
+  m_Enabled: 1
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &2160625195364846804
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430771346364095788}
   - component: {fileID: 624526881265378190}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7148264928884738130}
   - component: {fileID: 6828529288383539246}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

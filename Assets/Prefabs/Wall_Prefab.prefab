@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 467229525905002097}
   - component: {fileID: 23396916336667397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\uB3CC\uBCBD"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,8 @@ GameObject:
   - component: {fileID: -8368889731730533260}
   - component: {fileID: 2620280719025982618}
   - component: {fileID: 4808005491908984686}
-  m_Layer: 0
+  - component: {fileID: 2664411322515299911}
+  m_Layer: 8
   m_Name: Wall_Prefab
   m_TagString: Obstacle_Wall
   m_Icon: {fileID: 0}
@@ -159,8 +160,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -257,6 +258,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &2664411322515299911
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608203035077365573}
+  m_Enabled: 1
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &8477201352237883533
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8896943004485793940}
   - component: {fileID: 1490744950627334001}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

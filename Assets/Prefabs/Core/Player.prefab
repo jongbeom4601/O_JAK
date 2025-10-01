@@ -43,9 +43,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3532770001834517952}
   - component: {fileID: 9189416678818439263}
-  - component: {fileID: 2655326790680740443}
-  - component: {fileID: 916183100554015100}
-  - component: {fileID: 7629221306872180582}
   - component: {fileID: 5730106850302775887}
   - component: {fileID: 4853927768620991620}
   m_Layer: 0
@@ -123,70 +120,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2655326790680740443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5475125341153602970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12c5d3e7039f0947974856b51d42a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridSize: 1
-  moveDuration: 0.1
-  upKey: 273
-  downKey: 274
-  leftKey: 276
-  rightKey: 275
-  moveCountText: {fileID: 0}
-  inputCountText: {fileID: 0}
-  characterAnim: {fileID: 0}
-  visual: {fileID: 0}
-  hasKey: 0
---- !u!114 &916183100554015100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5475125341153602970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a407f5c3da7af5f4abbfe467fcf61671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillKey: 13
-  holdThreshold: 1
-  skillBehaviour: {fileID: 7629221306872180582}
-  partner: {fileID: 7958087894682692521}
-  holdGauge: {fileID: 0}
-  gaugeRoot: {fileID: 0}
-  ownerMovement: {fileID: 2655326790680740443}
-  cooldown: 0.2
-  gaugeShowDelay: 0.3
-  fadeDuration: 0.2
-  fillColor: {r: 1, g: 1, b: 1, a: 1}
-  readyColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!114 &7629221306872180582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5475125341153602970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee1c151afeba904c9fc964510717e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxUses: 3
-  usesText: {fileID: 0}
-  anim: {fileID: 0}
-  casterAnim: {fileID: 0}
-  allyAnim: {fileID: 0}
 --- !u!50 &5730106850302775887
 Rigidbody2D:
   serializedVersion: 4
@@ -376,9 +309,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7473715383480356353}
   - component: {fileID: 5825108351050375230}
-  - component: {fileID: 7074913420979463687}
-  - component: {fileID: 9054253867939639665}
-  - component: {fileID: 8910842658258371203}
   - component: {fileID: 6512164137780825284}
   - component: {fileID: 8144980730191768361}
   m_Layer: 0
@@ -456,70 +386,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7074913420979463687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7958087894682692521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12c5d3e7039f0947974856b51d42a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridSize: 1
-  moveDuration: 0.1
-  upKey: 119
-  downKey: 115
-  leftKey: 97
-  rightKey: 100
-  moveCountText: {fileID: 0}
-  inputCountText: {fileID: 0}
-  characterAnim: {fileID: 0}
-  visual: {fileID: 0}
-  hasKey: 0
---- !u!114 &9054253867939639665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7958087894682692521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a407f5c3da7af5f4abbfe467fcf61671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillKey: 32
-  holdThreshold: 1
-  skillBehaviour: {fileID: 8910842658258371203}
-  partner: {fileID: 5475125341153602970}
-  holdGauge: {fileID: 0}
-  gaugeRoot: {fileID: 0}
-  ownerMovement: {fileID: 7074913420979463687}
-  cooldown: 0.2
-  gaugeShowDelay: 0.3
-  fadeDuration: 0.2
-  fillColor: {r: 1, g: 1, b: 1, a: 1}
-  readyColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!114 &8910842658258371203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7958087894682692521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398ea5e4a252d1c40ace3709c30e33e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxUses: 3
-  usesText: {fileID: 0}
-  anim: {fileID: 0}
-  casterAnim: {fileID: 0}
-  allyAnim: {fileID: 0}
 --- !u!50 &6512164137780825284
 Rigidbody2D:
   serializedVersion: 4

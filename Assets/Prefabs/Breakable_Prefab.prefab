@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: -2097075609282723934}
   - component: {fileID: 10822763954973253}
   - component: {fileID: -2902473953379497171}
-  m_Layer: 0
+  - component: {fileID: -693812578005721627}
+  m_Layer: 8
   m_Name: Breakable_Prefab
   m_TagString: Obstacle_Breakable
   m_Icon: {fileID: 0}
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.9294118, g: 0.10980393, b: 0.14117648, a: 1}
@@ -99,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171ac88f13f9f104f987d4953289e4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyEffect: {fileID: 0}
 --- !u!61 &10822763954973253
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,3 +172,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &-693812578005721627
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951938934910560412}
+  m_Enabled: 1
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1

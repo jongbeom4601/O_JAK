@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3709179033460596273}
   - component: {fileID: 1591029336726342476}
   - component: {fileID: 8430202450984443790}
-  m_Layer: 0
+  - component: {fileID: 8015050282677582787}
+  m_Layer: 8
   m_Name: Door_Prefab
   m_TagString: Trigger_Door
   m_Icon: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.9496855, g: 0.23592801, b: 0.71204907, a: 1}
@@ -174,6 +175,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &8015050282677582787
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938003769892366929}
+  m_Enabled: 1
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &2662876760720461827
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6489582819388541730}
   - component: {fileID: 7300512192771626825}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 171733512540639861}
   - component: {fileID: 848014665413609393}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

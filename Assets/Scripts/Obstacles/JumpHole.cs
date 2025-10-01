@@ -1,54 +1,47 @@
 using UnityEngine;
-using System.Collections;
 
 public class JumpHole : MonoBehaviour, IInteractable
 {
+    public int Priority => 100;   // 최우선
     public float moveDuration = 0.1f;
 
     public void Interact(GameObject interactor, Vector2 direction)
     {
-        Vector2 currentPos = transform.position;
-        Vector2 targetPos = currentPos + direction;
+        var player = interactor.GetComponent<PlayerMovement>();
+        if (player == null) return;
 
-        // 다음 칸 확인
-        Collider2D hit = Physics2D.OverlapCircle(targetPos, 0.1f);
+        // 점프 목표 위치 = 현 위치 + dir * 2
+        Vector2 targetPos = (Vector2)interactor.transform.position + direction * 2f;
 
-        if (hit == null || !IsBlocked(hit))
+        // 도착 지점에 겹쳐 있는 모든 오브젝트 확인
+        Collider2D[] hits = Physics2D.OverlapCircleAll(targetPos, 0.1f);
+
+        // 하나라도 막히는 오브젝트가 있으면 점프 불가
+        foreach (var hit in hits)
         {
-            PlayerMovement player = interactor.GetComponent<PlayerMovement>();
-            if (player != null)
+            if (IsBlocked(hit))
             {
-                player.JumpTo(targetPos);
-                Debug.Log("JumpHole: 이동 성공");
-
-                // 이동 완료 후 재상호작용 시도
-                player.StartCoroutine(DelayedRecheck(player, direction));
+                Debug.Log("JumpHole: 점프 실패 - 막힘");
+                return;
             }
         }
-        else
-        {
-            Debug.Log("JumpHole: 이동 실패 - 막힘");
-        }
+
+        // 막히는 게 없으면 점프 이동
+        player.MoveTo(targetPos, direction);
+        Debug.Log("JumpHole: 점프 성공");
+
+        // 이동 완료 후 재상호작용 시도
     }
 
-    bool IsBlocked(Collider2D col)
+    private bool IsBlocked(Collider2D col)
     {
         if (col == null) return false;
 
+        // 막히는 오브젝트 태그만 체크
         return col.CompareTag("Obstacle_Wall") ||
                col.CompareTag("Obstacle_Box") ||
                col.CompareTag("Obstacle_Breakable") ||
                col.CompareTag("Obstacle_JumpHole") ||
                col.CompareTag("Trigger_Door");
-    }
-
-    IEnumerator DelayedRecheck(PlayerMovement player, Vector2 direction)
-    {
-        // isMoving이 false가 될 때까지 기다림
-        while (player.IsMoving)
-            yield return null;
-
-        // 현재 위치에서 다시 상호작용 시도
-        player.TryInteractOnly(direction);
     }
 }

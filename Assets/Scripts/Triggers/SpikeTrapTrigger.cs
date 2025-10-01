@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 
 public class SpikeTrapTrigger : MonoBehaviour, IInteractable
 {
+
+    public int Priority => 100; // 최우선
     [Header("해제할 함정들의 태그 이름")]
     public string trapTag = "TrapA";  // 예: "TrapA", "TrapB"
 

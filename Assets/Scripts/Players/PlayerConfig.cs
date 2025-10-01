@@ -15,11 +15,17 @@ public class PlayerConfig {
     [Header("플레이어 구분(견우 1, 직녀 2)")]
     [SerializeField] private PlayerType playerType = PlayerType.Geonwoo;
 
+    [Header("파트너 플레이어")]
+    [SerializeField] private GameObject partner;   // Inspector에서 직접 연결
+
     [Header("컨트롤 세트 선택")]
     [SerializeField] private ControlScheme controlScheme = ControlScheme.WASD;
 
     [Header("스킬")]
     [SerializeField] private int maxUses = 3;
+
+    [Header("아이템/상태")]
+    public bool hasKey = false;
 
     // 이동 키
     public KeyCode UpKey => controlScheme == ControlScheme.WASD ? KeyCode.W : KeyCode.UpArrow;
@@ -32,4 +38,5 @@ public class PlayerConfig {
 
     public int MaxUses => maxUses;
     public PlayerType Type => playerType;
+    public GameObject Partner => partner;
 }

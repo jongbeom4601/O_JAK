@@ -3571,6 +3571,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5192684860364155051, guid: 940e14ae1d6ee474fa5567c5f48b5c6d, type: 3}
+      propertyPath: onEnterMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192684860364155051, guid: 940e14ae1d6ee474fa5567c5f48b5c6d, type: 3}
+      propertyPath: preMoveMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 5826254368237613595, guid: 940e14ae1d6ee474fa5567c5f48b5c6d, type: 3}
       propertyPath: nextSceneName
       value: Stage4Scene

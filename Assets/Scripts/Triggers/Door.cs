@@ -1,23 +1,32 @@
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable {
+public class Door : MonoBehaviour, IInteractable
+{
+    public int Priority => 100;
 
     [Header("문 매니저")]
-    public DoorManager doorManager;     // DoorManager 연결
+    public DoorManager doorManager;
 
-    public void Interact(GameObject interactor, Vector2 direction) {
-        Vector2 currentPos = transform.position;
-        PlayerMovement player = interactor.GetComponent<PlayerMovement>();
+    public void Interact(GameObject interactor, Vector2 direction)
+    {
+        var input = interactor.GetComponent<PlayerInput>();
+        var movement = interactor.GetComponent<PlayerMovement>();
 
-        // 플레이어 컨트롤러에서 열쇠 상태 확인
-        if (player != null && player.HasKey()) {
-            player.UseKey();        // 열쇠 사용
-            Destroy(gameObject);    // 문 제거
-            player.MoveTo(currentPos); // 플레이어 이동
+        if (input != null && movement != null)
+        {
+            if (input.Config.hasKey)
+            {
+                input.Config.hasKey = false; // 열쇠 사용
+                Destroy(gameObject);
+                movement.MoveTo(transform.position);
 
-            // DoorManager에 값 전달
-            if (doorManager != null)
-                doorManager.DoorOpened();
+                if (doorManager != null)
+                    doorManager.DoorOpened();
+            }
+            else
+            {
+                Debug.Log("열쇠가 필요합니다!");
+            }
         }
     }
 }

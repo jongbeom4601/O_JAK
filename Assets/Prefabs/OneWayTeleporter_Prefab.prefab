@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2081209084287534214}
   - component: {fileID: 4357960744610778660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,8 @@ GameObject:
   - component: {fileID: 3173253066746929782}
   - component: {fileID: 726642359420607160}
   - component: {fileID: 2425862513071730251}
-  m_Layer: 0
+  - component: {fileID: 741352467394925520}
+  m_Layer: 8
   m_Name: OneWayTeleporter_Prefab
   m_TagString: Trigger_OneWayTeleporter
   m_Icon: {fileID: 0}
@@ -158,8 +159,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,3 +261,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &741352467394925520
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5968616691001270245}
+  m_Enabled: 1
+  m_SortingLayerID: -342227501
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
