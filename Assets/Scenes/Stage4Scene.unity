@@ -7556,6 +7556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 6758610049483105128, guid: 940e14ae1d6ee474fa5567c5f48b5c6d, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: b341cfb8d093612448332039d534cd26, type: 2}
     - target: {fileID: 6963969180438515328, guid: 940e14ae1d6ee474fa5567c5f48b5c6d, type: 3}
       propertyPath: maxUses
       value: 3

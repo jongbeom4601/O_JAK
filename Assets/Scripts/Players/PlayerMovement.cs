@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator characterAnim; // 캐릭터 애니메이터
 
     private PlayerConfig config;
-    private float gridSize = 1f;
     private float moveDuration = 0.1f;
 
     private bool isMoving = false;

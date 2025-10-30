@@ -47,7 +47,6 @@
 using UnityEngine;
 
 public class Cloud : MonoBehaviour, IOnEnter, IOnStay, IOnExit {
-    private bool active;
     private bool locked;
     [SerializeField]
     SpriteRenderer sr;
@@ -55,12 +54,10 @@ public class Cloud : MonoBehaviour, IOnEnter, IOnStay, IOnExit {
 
     public void OnEnter(GameObject interactor, Vector2 dir) {
         if (locked) return;
-        active = true;
     }
 
     public void OnStay(GameObject interactor) {
         if (locked) return;
-        active = true;
     }
 
     public void OnExit(GameObject interactor) {

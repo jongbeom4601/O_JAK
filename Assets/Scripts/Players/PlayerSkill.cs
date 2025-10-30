@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour, IAllySkill {
     private int remainingUses;
     private PlayerInput ownerInput;
     private ActionType skillType;
+
+    [Header("UI")]
+    [SerializeField] private Text usesText;
+    [SerializeField] private Animator anim;
 
     void Awake() {
         ownerInput = GetComponent<PlayerInput>();
@@ -23,6 +28,7 @@ public class PlayerSkill : MonoBehaviour, IAllySkill {
                 break;
         }
         remainingUses = ownerInput.Config.MaxUses;
+        UpdateUI();
     }
 
     public void UseSkill(GameObject caster) {
@@ -37,8 +43,15 @@ public class PlayerSkill : MonoBehaviour, IAllySkill {
         if (interaction.TryAction(input.LastDir, skillType)) {
             remainingUses--; // 스킬 동작 성공 시에만 차감
             Debug.Log($"스킬 사용! 남은 횟수: {remainingUses}/{ownerInput.Config.MaxUses}");
+            UpdateUI(); // UI 갱신
+            anim.SetTrigger("Pulse"); // 애니메이션 트리거
         } else {
             Debug.Log("스킬 실패 또는 단순 이동 → 횟수 유지");
         }
+    }
+
+    void UpdateUI() {
+        if (usesText != null)
+            usesText.text = $"{remainingUses}";
     }
 }

@@ -1,5 +1,6 @@
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerInteraction))]
 public class PlayerInput : MonoBehaviour
@@ -11,15 +12,22 @@ public class PlayerInput : MonoBehaviour
     public Transform visual;
     private float baseScaleX = 1f;
 
-    [SerializeField] private float holdThreshold = 1f;
+    [Header("스킬 UI")]
+    [SerializeField] private float holdThreshold = 0.4f;
+    [SerializeField] private float cooldown = 0.1f;
     private float pressedAt = -1f;
+    private float lastUseTime = -999f;
     private bool ready = false;
+    public Image holdGauge;                // 게이지 Image (Type=Filled)
+    public CanvasGroup gaugeRoot;          // 게이지 루트(CanvasGroup, 페이드용)
+    // 게이지 색상 (가득 차면 초록색)
+    private static readonly Color kGaugeNormal = Color.white;
+    private static readonly Color kGaugeFull = Color.green;
 
     private PlayerInteraction interaction;
     private IAllySkill skill;
 
     public Vector2 LastDir { get; private set; } = Vector2.zero;
-
     public PlayerConfig Config => config;
 
     void Awake()
@@ -30,6 +38,16 @@ public class PlayerInput : MonoBehaviour
             Debug.LogError($"{name}에 PlayerConfig가 할당되지 않았습니다!");
         if (visual != null)
             baseScaleX = Mathf.Abs(visual.localScale.x);
+
+        if (holdGauge != null)
+        {
+            holdGauge.type = Image.Type.Filled;
+            holdGauge.fillMethod = Image.FillMethod.Horizontal;
+            holdGauge.fillOrigin = (int)Image.OriginHorizontal.Left;
+            holdGauge.fillAmount = 0f;
+            holdGauge.color = kGaugeNormal;
+        }
+        HideGauge();
     }
 
     void Update()
@@ -38,28 +56,43 @@ public class PlayerInput : MonoBehaviour
 
         HandleMoveInput();
         HandleSkillInput();
+        UpdateHoldGauge();
     }
 
     private void HandleMoveInput()
     {
         Vector2 dir = GetInputDirection();
-        if (dir != Vector2.zero)
+        if (dir == Vector2.zero) return;
+
+        if (pressedAt > 0f)
         {
-            LastDir = dir;
-            interaction.TryAction(dir);
+            CancelCharge();
+            return;
         }
+
+        LastDir = dir;
+        interaction.TryAction(dir);
     }
 
     private void HandleSkillInput()
     {
         if (skill == null) return;
+        // 쿨다운 중이면 입력 무시
+        if (Time.time - lastUseTime < cooldown)
+        {
+            if (pressedAt > 0f) CancelCharge();
+            return;
+        }
 
         if (Input.GetKeyDown(config.SkillKey))
         {
             pressedAt = Time.time;
             ready = false;
+            ShowGauge();
+            SetGauge(0f);
+            SetGaugeColor(kGaugeNormal);
         }
-        if (pressedAt > 0 && Input.GetKey(config.SkillKey))
+        if (pressedAt > 0f && Input.GetKey(config.SkillKey))
         {
             float held = Time.time - pressedAt;
             if (held >= holdThreshold)
@@ -68,8 +101,12 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyUp(config.SkillKey) && pressedAt > 0)
         {
             float held = Time.time - pressedAt;
-            pressedAt = -1f;
+            bool shouldCastToPartner = ready || held >= holdThreshold;
 
+            var target = (shouldCastToPartner && config.Partner != null) 
+                ? config.Partner
+                : gameObject;
+            /*
             if (ready || held >= holdThreshold)
             {
                 // 홀드 완료 → 아군 대상으로
@@ -81,7 +118,36 @@ public class PlayerInput : MonoBehaviour
             { // 탭 → 자기 자신 대상
                 skill.UseSkill(gameObject);
             }
+            */
+
+            skill.UseSkill(target);
+            lastUseTime = Time.time;
+
+            pressedAt = -1f;
+            ready = false;
+            HideGauge();
+            SetGauge(0f);
+            SetGaugeColor(kGaugeNormal);
         }
+    }
+
+    private void UpdateHoldGauge()
+    {
+        if (pressedAt < 0f) return;
+
+        float held = Mathf.Max(0f, Time.time - pressedAt);
+        float ratio = holdThreshold > 0f ? Mathf.Clamp01(held / holdThreshold) : 1f;
+
+        if (ratio >= 1f)
+        {
+            ready = true;
+            SetGaugeColor(kGaugeFull);
+        }
+        else
+        {
+            SetGaugeColor(kGaugeNormal);
+        }
+        SetGauge(ratio);
     }
 
     private Vector2 GetInputDirection()
@@ -106,5 +172,45 @@ public class PlayerInput : MonoBehaviour
         var s = visual.localScale;
         s.x = baseScaleX;
         visual.localScale = s;
+    }
+    
+    void ShowGauge()
+    {
+        if (gaugeRoot)
+        {
+            gaugeRoot.alpha = 1f;
+            gaugeRoot.interactable = false;
+            gaugeRoot.blocksRaycasts = false;
+        }
+        if (holdGauge) holdGauge.enabled = true;
+    }
+
+    void HideGauge()
+    {
+        if (gaugeRoot)
+        {
+            gaugeRoot.alpha = 0f;
+            gaugeRoot.interactable = false;
+            gaugeRoot.blocksRaycasts = false;
+        }
+        if (holdGauge) holdGauge.enabled = false;
+    }
+
+    void SetGaugeColor(Color c)
+    {
+        if (holdGauge) holdGauge.color = c;
+    }
+
+    void SetGauge(float t01)
+    {
+        if (holdGauge) holdGauge.fillAmount = Mathf.Clamp01(t01);
+    }
+
+    void CancelCharge()
+    {
+        pressedAt = -1f;
+        ready = false;
+        HideGauge();
+        SetGauge(0f);
     }
 }
