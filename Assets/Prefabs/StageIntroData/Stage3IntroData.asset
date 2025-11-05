@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0798f46cb09614491023c8fda9ccac, type: 3}
   m_Name: Stage3IntroData
   m_EditorClassIdentifier: 
-  title: "\uC6B4\uC5ED"
-  subtitle: "\uAD6C\uB984\uC758 \uC601\uC5ED"
+  title: "\uCC9C\uACC4"
+  subtitle: 
   icon: {fileID: 0}
   themeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   fadeIn: 0.35

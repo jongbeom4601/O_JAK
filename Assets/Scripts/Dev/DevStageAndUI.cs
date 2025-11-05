@@ -3,57 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class DevStageAndUI : MonoBehaviour
 {
-    [Header("UI Panels")]
-    public GameObject panelT;  // T 키로 열리고 닫히는 패널
-    public GameObject panelY;  // Y 키로 열리고 닫히는 패널
-
-    void Start()
-    {
-        if (panelT != null) panelT.SetActive(false);
-        if (panelY != null) panelY.SetActive(false);
-    }
 
     void Update()
     {
-        bool tActive = panelT != null && panelT.activeSelf;
-        bool yActive = panelY != null && panelY.activeSelf;
-
-        // panelT가 켜져 있을 때 → T만 체크
-        if (tActive)
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                panelT.SetActive(false);
-                Debug.Log("T: panelT 닫음");
-            }
-            return; // 다른 입력 무시
-        }
-
-        // panelY가 켜져 있을 때 → Y만 체크
-        if (yActive)
-        {
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                panelY.SetActive(false);
-                Debug.Log("Y: panelY 닫음");
-            }
-            return; // 다른 입력 무시
-        }
-
-        // ----- 평소 상태 (패널 꺼져있을 때) -----
-        if (Input.GetKeyDown(KeyCode.T) && panelT != null)
-        {
-            panelT.SetActive(true);
-            Debug.Log("T: panelT 열림");
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y) && panelY != null)
-        {
-            panelY.SetActive(true);
-            Debug.Log("Y: panelY 열림");
-            return;
-        }
 
         // ----- 개발자용 씬 이동 -----
         if (Input.GetKeyDown(KeyCode.P))

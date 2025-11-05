@@ -4,6 +4,9 @@ public class Door : MonoBehaviour, IInteractable
 {
     public int Priority => 100;
 
+    [Header("애니메이터")]
+    public Animator animator;
+
     [Header("문 매니저")]
     public DoorManager doorManager;
 
@@ -17,7 +20,7 @@ public class Door : MonoBehaviour, IInteractable
             if (input.Config.hasKey)
             {
                 input.Config.hasKey = false; // 열쇠 사용
-                Destroy(gameObject);
+                animator.SetTrigger("Open");
                 movement.MoveTo(transform.position);
 
                 if (doorManager != null)

@@ -27,7 +27,7 @@ public class JumpHole : MonoBehaviour, IInteractable
         }
 
         // 막히는 게 없으면 점프 이동
-        player.MoveTo(targetPos, direction);
+        player.MoveTo(targetPos, Motion.Jump, direction);
         Debug.Log("JumpHole: 점프 성공");
 
         // 이동 완료 후 재상호작용 시도

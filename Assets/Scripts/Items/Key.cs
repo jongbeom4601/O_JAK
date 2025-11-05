@@ -27,6 +27,7 @@ public class Key : MonoBehaviour, IOnEnter {
         if (!input.Config.hasKey) {
             input.Config.hasKey = true;
             Debug.Log("¿­¼è È¹µæ!");
+            input.Config.Animator.SetTrigger("Pick");
             Destroy(gameObject);
         }
     }

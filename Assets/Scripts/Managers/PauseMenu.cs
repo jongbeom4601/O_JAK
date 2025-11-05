@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Animator animator;
-    public Animator bgAnimator;
     public string titleSceneName = "TitleScene";
     public GameObject optionPanel;   // 옵션 패널 (Inspector에서 연결)
 
@@ -34,16 +32,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        animator.SetTrigger("Open");
-        bgAnimator.SetTrigger("FadeOut");
         Time.timeScale = 0f;
         isPaused = true;
     }
 
     public void Resume()
     {
-        animator.SetTrigger("Close");
-        bgAnimator.SetTrigger("FadeIn");
         Time.timeScale = 1f;
         isPaused = false;
     }

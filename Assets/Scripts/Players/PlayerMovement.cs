@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting.FullSerializer;
+
+public enum Motion { None, Walk, Jump }
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("캐릭터 애니메이션")]
-    public Animator characterAnim; // 캐릭터 애니메이터
-
     private PlayerConfig config;
     private float moveDuration = 0.1f;
+
+    [Header("애니메이션")]
+    [SerializeField] private Animator animator;
 
     private bool isMoving = false;
     private bool inputLocked = false;
@@ -15,11 +18,15 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving => isMoving;
     public bool IsInputLocked => inputLocked;
 
-    public void MoveTo(Vector2 targetPos, Vector2 dir = default) {
+
+
+    public void MoveTo(Vector2 targetPos, Motion motion = Motion.Walk, Vector2 dir = default) {
         if (!isMoving) {
             // 방향이 안 넘어왔으면 자동 계산
             if (dir == default)
                 dir = (targetPos - (Vector2)transform.position).normalized;
+
+            PlayMotion(motion);
             StartCoroutine(Move(transform, targetPos));
         }
     }
@@ -28,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = true;
         Vector2 start = obj.position;
         float elapsed = 0f;
-        characterAnim.SetTrigger("Move");
+        // animator.SetTrigger("Walk");
         while (elapsed < moveDuration) {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / moveDuration);
@@ -39,6 +46,30 @@ public class PlayerMovement : MonoBehaviour
         obj.position = target;
         isMoving = false;
     }
+
+    void PlayMotion(Motion motion)
+    {
+        if (!animator) return;
+
+        // 중복 방지: 관련 트리거 초기화
+        animator.ResetTrigger("Walk");
+        animator.ResetTrigger("Jump");
+
+        switch (motion)
+        {
+            case Motion.Walk:
+                animator.SetTrigger("Walk");
+                break;
+            case Motion.Jump:
+                animator.SetTrigger("Jump");
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
 
     // JumpHole 전용 메서드... 최적화 시 수정해야 함
     IEnumerator Jump(Transform obj, Vector2 target)

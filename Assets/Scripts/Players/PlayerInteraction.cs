@@ -94,7 +94,7 @@ public class PlayerInteraction : MonoBehaviour {
         }
         // 오브젝트 없을 시 이동
         if (actionType == ActionType.MoveOrInteract) {
-            movement.MoveTo(targetPos, dir);
+            movement.MoveTo(targetPos, Motion.Walk, dir);
             return false;
         }
         return false;

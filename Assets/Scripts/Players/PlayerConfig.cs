@@ -18,6 +18,9 @@ public class PlayerConfig {
     [Header("파트너 플레이어")]
     [SerializeField] private GameObject partner;   // Inspector에서 직접 연결
 
+    [Header("애니메이션")]
+    [SerializeField] private Animator characterAnim;   // Inspector에서 직접 연결
+
     [Header("컨트롤 세트 선택")]
     [SerializeField] private ControlScheme controlScheme = ControlScheme.WASD;
 
@@ -39,4 +42,5 @@ public class PlayerConfig {
     public int MaxUses => maxUses;
     public PlayerType Type => playerType;
     public GameObject Partner => partner;
+    public Animator Animator => characterAnim;
 }

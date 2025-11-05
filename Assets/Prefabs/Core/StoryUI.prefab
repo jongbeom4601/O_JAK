@@ -47,40 +47,70 @@ MonoBehaviour:
   dialoguePanel: {fileID: 9139527637109664916}
   nameText: {fileID: 4124508018050845425}
   dialogueText: {fileID: 5661868425637189329}
-  endCursor: {fileID: 0}
+  endCursor: {fileID: 8889630708309497121}
+  portraitImage: {fileID: 200464641807636841}
+  portraitFade: 0.15
   lines:
   - speakerName: "\uC625\uD669\uC0C1\uC81C"
     text: ......
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC625\uD669\uC0C1\uC81C"
     text: "\uB0B4 \uADF8\uB9AC\uB3C4 \uACBD\uACE0\uD588\uAC70\uB298..."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC625\uD669\uC0C1\uC81C"
     text: "\uCC9C\uACC4\uC758 \uC77C\uC740 \uD33D\uAC1C\uCE58\uACE0 \uB178\uB2E5\uAC70\uB9AC\uBA70
       \uB05D\uB0B4 \uC9D0\uC744 \uB178\uD558\uAC8C \uD558\uB294\uAD6C\uB098..."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC625\uD669\uC0C1\uC81C"
     text: "\uD615\uBC8C\uC744 \uB0B4\uB9AC\uACA0\uB2E4.\n\uB2E4\uC2DC \uB9CC\uB098\uACE0
       \uC2F6\uAC70\uB298 \uB108\uD76C\uC758 \uB2A5\uB825\uC744 \uC99D\uBA85\uD574\uB77C."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0, \uC9C1\uB140"
     text: ...... / ......
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uC9C1\uB140.. \uC9C1\uB140..! \uB4E4\uB9AC\uC2DC\uC624 \uC9C1\uB140?"
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC9C1\uB140"
     text: "\uB4E4\uB9BD\uB2C8\uB2E4."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uC5F0\uB77D\uC7A5\uCE58\uAC00 \uAE68\uC9C0\uC9C0 \uC54A\uC544\uC11C \uB2E4\uD589\uC774\uAD70.."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC9C1\uB140"
     text: "\uADF8\uB098\uC800\uB098 \uC5EC\uAE34 \uC5B4\uB514\uC778\uAC78\uAE4C\uC694?"
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uC18C\uBB38\uC73C\uB85C \uB4E3\uB358 \uC625\uD669\uC0C1\uC81C\uC758 \uBBF8\uAD81
       \uC778\uAC83\uAC19\uAD70."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uADF8\uC790\uB97C \uB9CC\uB098\uB7EC\uAC00\uC57C\uACA0\uC5B4."
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uC9C1\uB140"
     text: "\uD558\uC9C0\uB9CC \uC5B4\uB5BB\uAC8C \uC5EC\uAE38 \uBE60\uC838\uB098\uAC00\uC8E0?"
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uC6B0\uB9AC\uC5D0\uAC90 \uCC9C\uACC4\uC758 \uBB3C\uAC74\uC774 \uC788\uC796\uC544"
+    portrait: {fileID: 0}
+    flipX: 0
   - speakerName: "\uACAC\uC6B0"
     text: "\uCC9C\uACC4\uC640 \uBA40\uC5B4\uC838 \uD798\uC740 \uC57D\uD574\uC84C\uACA0\uC9C0\uB9CC,
       \uADF8\uB798\uB3C4 \uC4F8\uC218\uB294 \uC788\uC744\uAC70\uC57C."
+    portrait: {fileID: 0}
+    flipX: 0
   nextSceneName: 
   typeSpeed: 0.05
 --- !u!1 &2406235573021823886
@@ -250,6 +280,81 @@ Transform:
   - {fileID: 2635588625190880637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6005253744146063890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4409069349760997097}
+  - component: {fileID: 8840709072661366521}
+  - component: {fileID: 200464641807636841}
+  m_Layer: 5
+  m_Name: Portrait_Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &4409069349760997097
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005253744146063890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3566172832550616614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.77000004}
+  m_AnchoredPosition: {x: -230.7, y: 98}
+  m_SizeDelta: {x: 100, y: 73}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8840709072661366521
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005253744146063890}
+  m_CullTransparentMesh: 1
+--- !u!114 &200464641807636841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005253744146063890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7997226042926823300
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +699,7 @@ RectTransform:
   - {fileID: 3186701972644179299}
   - {fileID: 6671739949995204927}
   - {fileID: 8776704806442385167}
+  - {fileID: 4409069349760997097}
   m_Father: {fileID: 2635588625190880637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
