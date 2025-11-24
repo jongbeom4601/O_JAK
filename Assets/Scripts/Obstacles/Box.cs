@@ -9,6 +9,7 @@ public class Box : MonoBehaviour, IInteractable {
     public void Interact(GameObject interactor, Vector2 direction) {
         Vector2 currentPos = transform.position;
         Vector2 targetPos = currentPos + direction;
+        var input = interactor.GetComponent<PlayerInput>();
 
         // 타겟 위치에 뭔가 있는지 확인
         Collider2D hit = Physics2D.OverlapCircle(targetPos, 0.1f);
@@ -17,6 +18,7 @@ public class Box : MonoBehaviour, IInteractable {
         {
             // 밀 수 있으면 이동
             StartCoroutine(Move(targetPos));
+            input.Config.Animator.SetTrigger("Push");
         }
         else
         {

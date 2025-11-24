@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
         if (optionPanel != null)
             optionPanel.SetActive(false);
     }
-
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
             else Pause();
         }
     }
+    */
 
     public void Pause()
     {

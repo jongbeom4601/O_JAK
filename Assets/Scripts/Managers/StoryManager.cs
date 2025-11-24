@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 [System.Serializable]
 
-public class DialogueLine {
+public class DialogueLine
+{
     public string speakerName;          // 화자 이름
     [TextArea(3, 5)]
     public string text;                 // 대사
@@ -14,7 +15,18 @@ public class DialogueLine {
     public bool flipX;                  // 좌우반전이 필요 시
 }
 
-public class StoryManager : MonoBehaviour {
+public class StoryManager : MonoBehaviour
+{
+    [Header("씬 페이드")]
+    public UIFader screenFader;         // ← 방금 만든 검은 Image에 있는 UIFader
+    public float sceneFadeIn = 0.4f;    // 시작 시: 검은 화면 → 투명
+    public float sceneFadeOut = 0.4f;   // 끝날 때: 투명 → 검은 화면
+    private bool isEnding = false;
+
+    [Header("시작 지연")]
+    [Tooltip("첫 대사가 나오기 전 대기 시간(초)")]
+    public float firstLineDelay = 0f;
+
     [Header("UI 연결")]
     public GameObject dialoguePanel;    // 대화창 패널
     public TMP_Text nameText;           // 화자 이름 표시용 TMP 텍스트
@@ -41,26 +53,48 @@ public class StoryManager : MonoBehaviour {
     private Coroutine typingCoroutine;  // 실행 중인 코루틴 저장용
     private Coroutine portraitFadeCoroutine;
 
-    void Start() {
-        // 시작 시 대화창 켜고, endCursor는 꺼둠
-        if (dialoguePanel != null) dialoguePanel.SetActive(true);
-        if (endCursor != null) endCursor.SetActive(false);
-
-        // 첫 줄 출력
-        if (lines.Length > 0) {
-            ShowLine();
-            isDialogueActive = true;
-        }
+    void Start()
+    {
+        StartCoroutine(CoStartDialogue());
     }
 
-    void Update() {
-        if (isDialogueActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
+
+    void Update()
+    {
+        if (isDialogueActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
+        {
             if (isTyping)
                 SkipTyping();   // 출력 도중 -> 전체 문장 바로 출력
             else
                 NextLine();     // 출력 완료 -> 다음 줄로 이동
         }
     }
+
+    IEnumerator CoStartDialogue()
+    {
+        // (선택) 지연 동안 패널을 숨기고 싶으면 주석 해제
+        // if (dialoguePanel) dialoguePanel.SetActive(false);
+
+        // 지연: 타임스케일 영향을 받기 싫으면 Realtime 유지
+        if (screenFader)
+        {
+            screenFader.SetVisible(true);             // 시작은 검은 화면
+            yield return screenFader.FadeOut(sceneFadeIn); // 검정 → 투명
+        }
+
+        if (firstLineDelay > 0f)
+            yield return new WaitForSecondsRealtime(firstLineDelay);
+
+        if (dialoguePanel != null) dialoguePanel.SetActive(true);
+        if (endCursor != null) endCursor.SetActive(false);
+
+        if (lines.Length > 0)
+        {
+            ShowLine();
+            isDialogueActive = true;
+        }
+    }
+
 
     // 현재 인덱스의 대사 출력
     void ShowLine()
@@ -115,16 +149,39 @@ public class StoryManager : MonoBehaviour {
         }
         else
         {
-            // 대사 종료 처리
-            if (!string.IsNullOrEmpty(nextSceneName)) SceneManager.LoadScene(nextSceneName);
-            else if (dialoguePanel) dialoguePanel.SetActive(false);
-
+            // 대사 종료 처리: 여기서는 씬 로드 금지!
             isDialogueActive = false;
+
+            // (선택) UI 정리 정도만
+            if (dialoguePanel) dialoguePanel.SetActive(false);
+
+            // 페이드 아웃 코루틴만 호출
+            if (!isEnding) StartCoroutine(CoEndScene());
         }
     }
 
+    // ... CoEndScene() 수정
+    IEnumerator CoEndScene()
+    {
+        if (isEnding) yield break;
+        isEnding = true;
+
+        // 페이더가 있다면: 투명 → 검정
+        if (screenFader)
+        {
+            screenFader.gameObject.SetActive(true);
+            screenFader.SetAlpha(0f);          // ← 시작값 0으로 세팅(메서드 추가 필요)
+            yield return screenFader.FadeIn(sceneFadeOut);
+        }
+
+        // 페이드 끝난 뒤에만 씬 로드
+        if (!string.IsNullOrEmpty(nextSceneName))
+            SceneManager.LoadScene(nextSceneName);
+    }
+
     // 타자기 효과
-    IEnumerator TypeLine(string line) {
+    IEnumerator TypeLine(string line)
+    {
         isTyping = true;
 
         // 초기화
@@ -136,7 +193,8 @@ public class StoryManager : MonoBehaviour {
         int totalChars = dialogueText.textInfo.characterCount;
 
         // 한 글자씩 순차적으로 보여주기
-        for (int i = 0; i < totalChars; i++) {
+        for (int i = 0; i < totalChars; i++)
+        {
             dialogueText.maxVisibleCharacters = i + 1;
             yield return new WaitForSeconds(typeSpeed);
         }
@@ -146,7 +204,8 @@ public class StoryManager : MonoBehaviour {
     }
 
     // 타자 효과 스킵
-    void SkipTyping() {
+    void SkipTyping()
+    {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
@@ -158,18 +217,21 @@ public class StoryManager : MonoBehaviour {
     }
 
     // 다음 대사로 이동
-    void NextLine() {
+    void NextLine()
+    {
         currentIndex++;
         ShowLine();
     }
 
     // 화살표 아이콘 표시
-    void ShowEndCursor() {
+    void ShowEndCursor()
+    {
         if (endCursor != null) endCursor.SetActive(true);
     }
 
     // 화살표 아이콘 숨기기
-    void HideEndCursor() {
+    void HideEndCursor()
+    {
         if (endCursor != null) endCursor.SetActive(false);
     }
     //------------ 캐릭터 이미지 ---------------------

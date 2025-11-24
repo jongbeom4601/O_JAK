@@ -1,10 +1,3 @@
-// 변경 요약:
-// - 왼쪽 고정 보정 비활성화
-// - 센터 기준 채움 전용 플래그 추가 (centerFillMode)
-// - 센터 채움일 땐 위치 보정 없이 X스케일만 변경
-// - 스프라이트는 Pivot=Center, Mesh Type=Full Rect 권장
-
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInteraction))]
@@ -15,8 +8,8 @@ public class PlayerInput : MonoBehaviour
     private Animator animator;
 
     [Header("스킬 게이지 (SpriteRenderer)")]
-    [SerializeField] private SpriteRenderer gaugeBack;   // 배경 바
-    [SerializeField] private SpriteRenderer gaugeFill;   // 채움 바
+    [SerializeField] private SpriteRenderer gaugeBack;
+    [SerializeField] private SpriteRenderer gaugeFill;
 
     [Tooltip("센터에서 양쪽으로 균등하게 채움")]
     [SerializeField] private bool centerFillMode = true;
@@ -31,6 +24,9 @@ public class PlayerInput : MonoBehaviour
     private float lastUseTime = -999f;
     private bool ready = false;
 
+    public AudioSource audioSource;
+    public AudioClip footstepClip;
+
     private static readonly Color kGaugeNormal = Color.white;
     private static readonly Color kGaugeFull = Color.green;
 
@@ -42,6 +38,9 @@ public class PlayerInput : MonoBehaviour
 
     public Vector2 LastDir { get; private set; } = Vector2.zero;
     public PlayerConfig Config => config;
+
+    //  추가: 입력 잠금 상태
+    public bool InputLocked { get; private set; } = false;
 
     void Awake()
     {
@@ -64,6 +63,8 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        //  대화 중이면 입력 처리 안 함
+        if (InputGates.DialogueOpen) return;
         if (config == null) return;
 
         HandleMoveInput();
@@ -75,6 +76,7 @@ public class PlayerInput : MonoBehaviour
     {
         Vector2 dir = GetInputDirection();
         if (dir == Vector2.zero) return;
+        if (InputLocked) return;
 
         if (pressedAt > 0f)
         {
@@ -83,6 +85,9 @@ public class PlayerInput : MonoBehaviour
         }
 
         LastDir = dir;
+        if (footstepClip && audioSource)
+            audioSource.PlayOneShot(footstepClip);
+
         SetAnimatorDir(dir);
         interaction.TryAction(dir);
     }
@@ -187,20 +192,14 @@ public class PlayerInput : MonoBehaviour
         if (!gaugeFill) return;
         t01 = Mathf.Clamp01(t01);
 
-        // 센터 기준 채움: 위치 보정 없이 X스케일만 조정
         if (centerFillMode)
         {
-            var s = gaugeFill.transform.localScale;
             float newX = Mathf.Max(0f, _fillBaseScale.x * t01);
             gaugeFill.transform.localScale = new Vector3(newX, _fillBaseScale.y, _fillBaseScale.z);
-
-            // 센터 유지: 위치 보정 금지 (Pivot=Center + MeshType=Full Rect 가정)
             gaugeFill.transform.localPosition = _fillBaseLocalPos;
         }
         else
         {
-            // 왼쪽 고정 채움 (원래 방식)
-            var s = gaugeFill.transform.localScale;
             float newX = Mathf.Max(0f, _fillBaseScale.x * t01);
             gaugeFill.transform.localScale = new Vector3(newX, _fillBaseScale.y, _fillBaseScale.z);
 
@@ -226,5 +225,11 @@ public class PlayerInput : MonoBehaviour
         ready = false;
         HideGauge();
         SetGauge(0f);
+    }
+
+    //  외부에서 잠금/해제 제어용 메서드
+    public void SetInputLocked(bool locked)
+    {
+        InputLocked = locked;
     }
 }

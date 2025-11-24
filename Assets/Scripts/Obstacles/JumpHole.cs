@@ -5,6 +5,10 @@ public class JumpHole : MonoBehaviour, IInteractable
     public int Priority => 100;   // 최우선
     public float moveDuration = 0.1f;
 
+    [Header("점프 성공 효과음")]
+    public AudioClip jumpSound;
+    public AudioSource audioSource;
+
     public void Interact(GameObject interactor, Vector2 direction)
     {
         var player = interactor.GetComponent<PlayerMovement>();
@@ -30,7 +34,22 @@ public class JumpHole : MonoBehaviour, IInteractable
         player.MoveTo(targetPos, Motion.Jump, direction);
         Debug.Log("JumpHole: 점프 성공");
 
-        // 이동 완료 후 재상호작용 시도
+        //  점프 성공 시 효과음 재생
+        PlayJumpSound();
+    }
+
+    private void PlayJumpSound()
+    {
+        if (jumpSound == null) return;
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 0f; // 2D 사운드
+        }
+
+        audioSource.PlayOneShot(jumpSound);
     }
 
     private bool IsBlocked(Collider2D col)
